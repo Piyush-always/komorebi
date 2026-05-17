@@ -82,15 +82,10 @@
           <span>See the paintings</span>
           <span class="arrow" aria-hidden="true">→</span>
         </a>
-
-        <div class="hero-v3__proof">
-          <div class="hero-v3__avatars" aria-hidden="true" id="proof-avatars"></div>
-          <span>Held in private collections across 12 countries</span>
-        </div>
       </div>
 
-      <!-- Mist / fog gradient near bottom -->
-      <div class="hero-v3__mist" aria-hidden="true"></div>
+      <!-- Cream cloud bank — cards dissolve into this as they sink past the horizon -->
+      <div class="hero-v3__clouds" aria-hidden="true"></div>
     </section>
 
     <!-- ============================ MANIFESTO ========================= -->
@@ -246,69 +241,60 @@
       return out.slice(0, n);
     }
 
-    // -------- Floating hero cards: cinematic 3-card composition --------
-    // Across-the-top placement framing the headline. Asymmetric:
-    // left and right cards extend partially off-screen, center card recessed.
-    const HERO_CARDS = [
-      { top: '-6%',  left: '-5%',  w: 340, r: -14, s: 1.00, depth: 32, dur: 16, delay: 0.0, z: 2 },
-      { top: '-12%', left: '38%',  w: 240, r:   4, s: 0.86, depth: 18, dur: 19, delay: 1.4, z: 1 },
-      { top: '-5%',  right:'-4%',  w: 350, r:  14, s: 1.02, depth: 34, dur: 17, delay: 0.7, z: 2 },
-    ];
+    // -------- Carousel wheel — 10 slots, 5 visible in the upper arc --------
+    const WHEEL_SLOTS = 10;
+
+    /** Distribute paintings across the wheel.
+     *  works.json has 9 paintings; the 10th slot reuses one painting placed
+     *  180° opposite its original, so the two copies are never visible together. */
+    function buildSlotOrder(picks, slots) {
+      const out = [...picks];                           // 9 unique paintings in across-series order
+      const dupSourceSlot = 0;                          // duplicate the painting at slot 0
+      const dupTargetSlot = (dupSourceSlot + slots / 2) % slots;  // 5 — antipodal on the wheel
+      out.splice(dupTargetSlot, 0, picks[dupSourceSlot]);
+      return out;                                       // length 10
+    }
 
     (async () => {
       const { works, series } = await loadData();
 
-      // -------- Hero floating cards --------
+      // -------- Status pill count --------
       const availableWorks = works.filter((w) => w.status === 'available');
       document.getElementById('badge-count').textContent = availableWorks.length;
 
+      // -------- Build the carousel wheel --------
       const heroCards = document.getElementById('hero-cards');
-      // Pick 3 works for visual variety across series
-      const picks = pickAcrossSeries(works, series, 3);
-      heroCards.innerHTML = picks.map((work, i) => {
-        const cfg = HERO_CARDS[i];
+      const picks = pickAcrossSeries(works, series, works.length);     // all 9 paintings
+      const slotOrder = buildSlotOrder(picks, WHEEL_SLOTS);            // 10-element wheel order
+      const slotStep = 360 / WHEEL_SLOTS;                              // 36deg between slots
+
+      const wheelHTML = slotOrder.map((work, i) => {
+        const angle = i * slotStep;
         const colors = work.dominantColors || [];
-        const pos = [
-          cfg.top != null    ? `top:${cfg.top}`       : '',
-          cfg.bottom != null ? `bottom:${cfg.bottom}` : '',
-          cfg.left != null   ? `left:${cfg.left}`     : '',
-          cfg.right != null  ? `right:${cfg.right}`   : '',
-        ].filter(Boolean).join(';');
-        const styleVars = [
-          pos,
-          `--w:${cfg.w}px`,
-          `--r:${cfg.r}deg`,
-          `--s:${cfg.s}`,
-          `--depth:${cfg.depth}`,
-          `--anim-d:${cfg.dur}s`,
-          `--anim-delay:${cfg.delay}s`,
+        const cardVars = [
           `--c1:${colors[0] || '#1f2a1c'}`,
           `--c2:${colors[1] || '#7a8a5a'}`,
           `--c3:${colors[2] || '#d4a849'}`,
-          `z-index:${cfg.z}`,
-          `--reveal-delay:${i * 90}ms`,
         ].join(';');
         return `
-          <a class="hero-card" href="artwork.html?id=${escapeAttr(work.id)}" style="${styleVars}" aria-label="${escapeAttr(work.title)}">
-            <div class="work-card__placeholder" aria-hidden="true"></div>
-            <img class="hero-card__art" data-loading src="${escapeAttr(work.image)}"
-                 alt="" loading="lazy" decoding="async"
-                 onload="this.removeAttribute('data-loading')"
-                 onerror="this.style.display='none'">
-            <div class="hero-card__label">
-              <span class="hero-card__title">${escapeHTML(work.title)}</span>
-              <span class="hero-card__meta">${work.year}</span>
-            </div>
-          </a>
+          <div class="wheel-slot" style="--angle:${angle}deg">
+            <a class="hero-card" href="artwork.html?id=${escapeAttr(work.id)}"
+               style="${cardVars}" aria-label="${escapeAttr(work.title)}">
+              <div class="work-card__placeholder" aria-hidden="true"></div>
+              <img class="hero-card__art" data-loading src="${escapeAttr(work.image)}"
+                   alt="" loading="lazy" decoding="async"
+                   onload="this.removeAttribute('data-loading')"
+                   onerror="this.style.display='none'">
+              <div class="hero-card__label">
+                <span class="hero-card__title">${escapeHTML(work.title)}</span>
+                <span class="hero-card__meta">${work.year}</span>
+              </div>
+            </a>
+          </div>
         `;
       }).join('');
 
-      // -------- Proof chip avatars (3 mini gradient circles using palettes from the series) --------
-      const proofAvatars = document.getElementById('proof-avatars');
-      proofAvatars.innerHTML = picks.map((work) => {
-        const c = work.dominantColors || [];
-        return `<span style="--c1:${c[0] || '#1f2a1c'};--c2:${c[1] || '#7a8a5a'};--c3:${c[2] || '#d4a849'}"></span>`;
-      }).join('');
+      heroCards.innerHTML = `<div class="wheel">${wheelHTML}</div>`;
 
       // -------- Trigger cinematic reveal once content is in DOM --------
       const heroSection = document.getElementById('hero');
@@ -316,31 +302,6 @@
       requestAnimationFrame(() => requestAnimationFrame(() => {
         heroSection.classList.add('is-revealed');
       }));
-
-      // Pointer parallax — set --mx, --my on hero container (0..1 → -0.5..0.5)
-      const heroEl = document.getElementById('hero');
-      const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (!reducedMotion && !matchMedia('(pointer: coarse)').matches) {
-        let raf = 0, mx = 0, my = 0, tx = 0, ty = 0;
-        heroEl.addEventListener('pointermove', (e) => {
-          const r = heroEl.getBoundingClientRect();
-          tx = (e.clientX - r.left) / r.width  - 0.5;
-          ty = (e.clientY - r.top)  / r.height - 0.5;
-          if (!raf) raf = requestAnimationFrame(loop);
-        });
-        heroEl.addEventListener('pointerleave', () => { tx = 0; ty = 0; if (!raf) raf = requestAnimationFrame(loop); });
-        function loop() {
-          mx += (tx - mx) * 0.08;
-          my += (ty - my) * 0.08;
-          heroEl.style.setProperty('--mx', mx.toFixed(4));
-          heroEl.style.setProperty('--my', my.toFixed(4));
-          if (Math.abs(tx - mx) > 0.001 || Math.abs(ty - my) > 0.001) {
-            raf = requestAnimationFrame(loop);
-          } else {
-            raf = 0;
-          }
-        }
-      }
 
       // Series count
       document.getElementById('series-count').textContent =
