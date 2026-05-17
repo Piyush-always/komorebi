@@ -1,0 +1,29 @@
+[
+  {
+    "id": "understory",
+    "title": "Understory",
+    "years": "2023 — present",
+    "subtitle": "Paintings of the world beneath the canopy.",
+    "statement": "Understory began on a morning I lost an hour to the floor of a forest — to the small green economy of light that happens before the trees finish their argument with the sun. The work is about what lives below noticing. Moss as a verb. The shape a body of light makes when it falls through a thing that is alive.",
+    "palette": ["#1f2a1c", "#7a8a5a", "#d4a849", "#3a2a1c"],
+    "cover": "tidal-memory"
+  },
+  {
+    "id": "first-light",
+    "title": "First Light",
+    "years": "2024",
+    "subtitle": "On the hour before the day has decided what it wants to be.",
+    "statement": "First Light is a series painted between 4:40 and 6:10 in the morning over the course of one winter. The studio faces east. The work is not about dawn — dawn is too theatrical a word for what actually happens. It is about the small, animal moment when the room becomes visible to itself again.",
+    "palette": ["#efe2cf", "#e8b896", "#c47a64", "#2a2218"],
+    "cover": "before-the-name"
+  },
+  {
+    "id": "vespers",
+    "title": "Vespers",
+    "years": "2022 — 2024",
+    "subtitle": "The half hour the day spends saying goodbye.",
+    "statement": "Vespers is a religious word for an unreligious feeling. These paintings are about the brief, blue interval after the sun has gone but before the dark has arrived to claim the room. I painted them slowly. They are meant to be lived with, not looked at.",
+    "palette": ["#1b2a3a", "#3d4a6a", "#c45a3d", "#0e0d0b"],
+    "cover": "the-blue-half-hour"
+  }
+]

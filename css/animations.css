@@ -1,0 +1,127 @@
+/* ============================================================
+   KOMOREBI — animations.css
+   Reveal classes, keyframes. Respects prefers-reduced-motion.
+   ============================================================ */
+
+@keyframes scrollCue {
+  0%, 100% { transform: scaleX(1); }
+  50%      { transform: scaleX(0.4); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes maskReveal {
+  from { clip-path: inset(0 0 100% 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes splitReveal {
+  from { transform: translateY(110%); }
+  to   { transform: translateY(0); }
+}
+
+@keyframes drift {
+  0%   { transform: translate3d(0,0,0) scale(1); }
+  50%  { transform: translate3d(2%, -1%, 0) scale(1.02); }
+  100% { transform: translate3d(0,0,0) scale(1); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Reveal-on-scroll classes — toggled by main.js via IntersectionObserver */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--dur-slow) var(--ease-out),
+              transform var(--dur-slow) var(--ease-art);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-reveal="mask"] {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 1.2s var(--ease-art);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal="mask"].is-revealed {
+  clip-path: inset(0 0 0 0);
+}
+
+[data-reveal="fade"] {
+  transform: none;
+  transition: opacity var(--dur-slow) var(--ease-out);
+}
+
+/* Split-line reveal — for big display headlines */
+.split-line {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.split-line__inner {
+  display: inline-block;
+  transform: translateY(110%);
+  transition: transform 1s var(--ease-art);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: transform;
+}
+
+.split-line.is-revealed .split-line__inner {
+  transform: translateY(0);
+}
+
+/* Hero ambient drift */
+.hero[data-mounted] .hero__caption strong {
+  animation: fadeUp 1.2s var(--ease-out) 0.4s backwards;
+}
+
+/* Image entrance */
+.work-card[data-reveal="mask"] .work-card__frame {
+  overflow: hidden;
+}
+
+/* Hover preview pulse for cart toast */
+.cart-pulse {
+  animation: shimmer 1.5s linear;
+  background: linear-gradient(
+    90deg,
+    var(--accent) 0%,
+    color-mix(in oklab, var(--accent) 60%, white) 50%,
+    var(--accent) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  [data-reveal].is-revealed,
+  [data-reveal="mask"],
+  [data-reveal="mask"].is-revealed,
+  .split-line__inner {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+  .hero__scrollcue::before { animation: none; }
+}

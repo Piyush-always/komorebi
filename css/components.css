@@ -1,0 +1,535 @@
+/* ============================================================
+   KOMOREBI — components.css
+   Buttons, cards, badges, forms, dialogs.
+   ============================================================ */
+
+/* Buttons --------------------------------------------------- */
+
+.btn {
+  --pad-x: 1.4rem;
+  --pad-y: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7em;
+  padding: var(--pad-y) var(--pad-x);
+  font-family: var(--font-body);
+  font-size: var(--step--1);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-transform: uppercase;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  cursor: pointer;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition: color var(--dur) var(--ease-out),
+              border-color var(--dur) var(--ease-out),
+              transform var(--dur-fast) var(--ease-out);
+  user-select: none;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  transform: translateY(101%);
+  transition: transform var(--dur) var(--ease-art);
+  z-index: -1;
+}
+
+.btn:hover::before { transform: translateY(0); }
+
+.btn:hover .btn__label {
+  color: var(--bg);
+}
+
+.btn .btn__label {
+  transition: color var(--dur) var(--ease-art);
+}
+
+.btn .btn__arrow {
+  display: inline-block;
+  transform: translateX(0);
+  transition: transform var(--dur) var(--ease-out), color var(--dur) var(--ease-art);
+}
+
+.btn:hover .btn__arrow {
+  transform: translateX(4px);
+  color: var(--bg);
+}
+
+.btn--primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+}
+
+.btn--primary::before {
+  background: var(--fg-strong);
+}
+
+.btn--primary:hover {
+  border-color: var(--fg-strong);
+}
+
+.btn--primary .btn__label { color: var(--bg); }
+.btn--primary:hover .btn__label { color: var(--bg); }
+
+.btn--ghost {
+  color: var(--fg);
+  border-color: var(--border-strong);
+}
+
+.btn--ghost:hover { color: var(--fg-strong); border-color: var(--accent); }
+.btn--ghost::before { background: var(--accent); }
+
+.btn--ghost[aria-pressed="true"] {
+  color: var(--bg);
+  border-color: var(--accent);
+  background: var(--accent);
+}
+.btn--ghost[aria-pressed="true"]::before { display: none; }
+.btn--ghost[aria-pressed="true"] .btn__label { color: var(--bg); }
+
+.btn--block {
+  width: 100%;
+}
+
+.btn--link {
+  border: 0;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--fg);
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: var(--step-0);
+  position: relative;
+}
+.btn--link::before { display: none; }
+.btn--link::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -3px;
+  height: 1px;
+  background: currentColor;
+  transition: transform var(--dur) var(--ease-out);
+  transform-origin: right;
+}
+.btn--link:hover::after { transform: scaleX(0); transform-origin: left; }
+
+/* Work cards (grid + strip) -------------------------------- */
+
+.work-card {
+  display: block;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  isolation: isolate;
+}
+
+.work-card__frame {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+}
+
+.work-card__frame--landscape { aspect-ratio: 5 / 4; }
+.work-card__frame--square    { aspect-ratio: 1 / 1; }
+
+.work-card__art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-art),
+              filter var(--dur-slow) var(--ease-art),
+              opacity var(--dur) var(--ease-out);
+  z-index: 1;
+}
+
+.work-card__art[data-loading] { opacity: 0; }
+
+/* Painted placeholder — atmospheric gradient behind every artwork */
+.work-card__placeholder {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(120% 100% at 30% 35%, var(--c2, #7a8a5a), transparent 55%),
+    radial-gradient(90% 70% at 75% 70%, var(--c3, #d4a849), transparent 65%),
+    radial-gradient(140% 120% at 50% 100%, var(--c1, #1f2a1c), var(--c1, #1f2a1c) 30%, transparent 85%),
+    linear-gradient(180deg, color-mix(in oklab, var(--c1, #1f2a1c) 80%, black), var(--c1, #1f2a1c));
+  filter: contrast(1.05) saturate(0.95);
+}
+
+.work-card__placeholder::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60% 80% at 50% 50%, transparent 60%, rgba(0,0,0,0.45)),
+    repeating-linear-gradient(125deg, transparent 0 6px, rgba(255,255,255,0.012) 6px 7px);
+  pointer-events: none;
+}
+
+.work-card__placeholder::before {
+  content: "";
+  position: absolute;
+  inset: 20% 30%;
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--c3, #d4a849) 40%, transparent), transparent);
+  filter: blur(40px);
+  opacity: 0.7;
+  animation: drift 14s ease-in-out infinite;
+}
+
+.work-card:hover .work-card__art {
+  transform: scale(1.04);
+  filter: brightness(1.05);
+}
+
+.work-card__overlay {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: var(--sp-5);
+  background: linear-gradient(0deg, rgba(0,0,0,0.6), rgba(0,0,0,0) 80%);
+  color: #fff;
+  opacity: 0;
+  transition: opacity var(--dur) var(--ease-out);
+  pointer-events: none;
+}
+
+.work-card:hover .work-card__overlay { opacity: 1; }
+
+.work-card__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--sp-4);
+  margin-top: var(--sp-4);
+  font-size: var(--step--1);
+}
+
+.work-card__title {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  letter-spacing: -0.012em;
+  line-height: 1.1;
+  color: var(--fg-strong);
+  font-weight: 360;
+}
+
+.work-card__meta {
+  color: var(--fg-muted);
+  font-size: var(--step--2);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: right;
+}
+
+/* Status badge --------------------------------------------- */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 0.4em 0.9em;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.badge::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.badge--available { color: var(--success); }
+.badge--sold      { color: var(--fg-muted); }
+.badge--prints    { color: var(--accent); }
+
+.badge--corner {
+  position: absolute;
+  top: var(--sp-3);
+  left: var(--sp-3);
+  z-index: 2;
+}
+
+/* Print variant selector ----------------------------------- */
+
+.variants {
+  display: grid;
+  gap: var(--sp-2);
+  margin-top: var(--sp-3);
+}
+
+.variant {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid var(--border);
+  background: transparent;
+  font-size: var(--step--1);
+  font-family: var(--font-body);
+  width: 100%;
+  text-align: left;
+  transition: border-color var(--dur-fast) var(--ease-out),
+              background var(--dur-fast) var(--ease-out);
+}
+
+.variant:hover { border-color: var(--accent); }
+
+.variant[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--fg-strong);
+}
+
+.variant__size {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  letter-spacing: -0.01em;
+}
+
+.variant__price {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--fg-muted);
+}
+
+/* Shop product card ---------------------------------------- */
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  padding: var(--sp-4);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  transition: border-color var(--dur) var(--ease-out),
+              transform var(--dur) var(--ease-out);
+}
+
+.product-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.product-card .work-card__frame { aspect-ratio: 1 / 1; }
+
+.product-card__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+
+.product-card__head h3 {
+  font-size: var(--step-2);
+  font-weight: 360;
+  line-height: 1.1;
+}
+
+.product-card__head .price {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--fg);
+  white-space: nowrap;
+}
+
+.product-card__meta {
+  font-size: var(--step--2);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+.product-card .btn { margin-top: auto; }
+
+/* Cart list ------------------------------------------------- */
+
+.cart-list {
+  display: grid;
+  gap: var(--sp-5);
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 120px 1fr auto;
+  gap: var(--sp-5);
+  align-items: center;
+  padding-bottom: var(--sp-5);
+  border-bottom: 1px solid var(--border);
+}
+
+@media (max-width: 560px) {
+  .cart-item { grid-template-columns: 80px 1fr; }
+  .cart-item__remove { grid-column: 2; justify-self: end; }
+}
+
+.cart-item__thumb {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: var(--bg-card);
+}
+
+.cart-item__thumb img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+
+.cart-item__title {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  line-height: 1.15;
+}
+
+.cart-item__meta {
+  margin-top: var(--sp-2);
+  font-size: var(--step--2);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+.cart-item__qty {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-3);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: var(--sp-1);
+}
+
+.cart-item__qty button {
+  width: 1.8rem; height: 1.8rem;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  color: var(--fg-muted);
+  transition: color var(--dur-fast) var(--ease-out), background var(--dur-fast);
+}
+
+.cart-item__qty button:hover { color: var(--bg); background: var(--accent); }
+.cart-item__qty span {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  min-width: 1.6rem;
+  text-align: center;
+}
+
+.cart-item__remove {
+  font-size: var(--step--2);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  transition: color var(--dur-fast);
+}
+.cart-item__remove:hover { color: var(--danger); }
+
+.cart-empty {
+  padding: var(--sp-9) var(--sp-5);
+  text-align: center;
+  border: 1px dashed var(--border-strong);
+  color: var(--fg-muted);
+}
+
+.cart-empty h2 {
+  font-family: var(--font-display);
+  font-weight: 320;
+  font-style: italic;
+  font-size: var(--step-3);
+  color: var(--fg);
+  margin-bottom: var(--sp-3);
+}
+
+/* Inquire form (in artwork detail) -------------------------- */
+
+.inquire {
+  padding: var(--sp-5);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  margin-top: var(--sp-5);
+}
+
+.inquire h4 {
+  font-size: var(--step-1);
+  margin-bottom: var(--sp-2);
+}
+
+.inquire p {
+  font-size: var(--step--1);
+  color: var(--fg-muted);
+  margin-bottom: var(--sp-4);
+}
+
+/* Toast ---------------------------------------------------- */
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: var(--sp-7);
+  transform: translateX(-50%) translateY(40px);
+  z-index: 200;
+  padding: var(--sp-3) var(--sp-5);
+  background: var(--fg-strong);
+  color: var(--bg);
+  font-size: var(--step--1);
+  letter-spacing: 0.04em;
+  border-radius: 999px;
+  box-shadow: 0 20px 50px -10px rgba(0,0,0,0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur) var(--ease-out),
+              transform var(--dur) var(--ease-out);
+}
+
+.toast.is-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Custom cursor (phase 2 stub, harmless in phase 1) -------- */
+
+.cursor {
+  position: fixed;
+  top: 0; left: 0;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: width var(--dur-fast), height var(--dur-fast), opacity var(--dur-fast);
+}
+
+@media (pointer: coarse) { .cursor { display: none; } }
+
+/* Reduced motion ------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

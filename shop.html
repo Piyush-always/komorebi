@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Shop — Komorebi</title>
+  <meta name="description" content="Original oil paintings (one of one) and signed archival prints from the Komorebi studio.">
+  <meta name="theme-color" content="#f6f1e6">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Shop — Komorebi">
+  <meta property="og:description" content="Acquire an original painting, or take home a signed print.">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='12' fill='%23d4a849'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,30..100;1,9..144,300..600,30..100&family=Inter:wght@380;450;500;600&display=swap">
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="site-nav" aria-label="Primary">
+    <a class="site-nav__brand" href="index.html">
+      Komorebi
+      <small>木漏れ日 · studio</small>
+    </a>
+    <div class="site-nav__links">
+      <a href="work.html">Work</a>
+      <a href="shop.html">Shop</a>
+      <a href="index.html#studio">Studio</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+    <a class="site-nav__cart" href="cart.html" aria-label="Cart">
+      Cart <span class="site-nav__cart-count" data-count="0">0</span>
+    </a>
+  </nav>
+
+  <main id="main">
+
+    <header class="section" style="padding-top:clamp(7rem,15vh,11rem);padding-bottom:0">
+      <div class="container" style="max-width:1100px;margin-inline:auto">
+        <span class="eyebrow" data-reveal>Acquire</span>
+        <h1 class="display" data-reveal style="font-size:var(--step-7);margin-top:var(--sp-4)">
+          Take home <em class="italic">a piece of the light.</em>
+        </h1>
+        <p class="lede" data-reveal style="--reveal-delay:120ms;margin-top:var(--sp-5);max-width:50ch">
+          Originals are one of one. Prints are made to last a lifetime.
+          The studio ships worldwide, crated and insured.
+        </p>
+      </div>
+    </header>
+
+    <section class="section shop-tracks" aria-labelledby="originals-h">
+
+      <!-- ===================== ORIGINALS ===================== -->
+      <div class="shop-track" id="originals">
+        <header class="shop-track__head">
+          <div>
+            <span class="eyebrow">One of one</span>
+            <h2 id="originals-h" data-reveal>Original paintings</h2>
+          </div>
+          <p data-reveal>
+            Each canvas is the only one. When it&rsquo;s gone, the painting moves on
+            with the room it&rsquo;s in.
+          </p>
+        </header>
+        <div class="shop-grid" id="originals-grid" aria-busy="true"></div>
+      </div>
+
+      <!-- ===================== PRINTS ===================== -->
+      <div class="shop-track" id="prints">
+        <header class="shop-track__head">
+          <div>
+            <span class="eyebrow">Open edition</span>
+            <h2 data-reveal>Signed archival prints</h2>
+          </div>
+          <p data-reveal>
+            Giclée on Hahnemühle cotton rag. Signed and numbered by the artist.
+            For the wall that isn&rsquo;t ready for an original yet.
+          </p>
+        </header>
+        <div class="shop-grid" id="prints-grid" aria-busy="true"></div>
+      </div>
+
+    </section>
+
+    <section class="section" aria-labelledby="ship-h">
+      <div class="container container--narrow stack" data-reveal>
+        <span class="eyebrow">How it works</span>
+        <h2 id="ship-h" class="display" style="font-size:var(--step-4)">A quiet, careful process.</h2>
+        <ol style="list-style:none;padding:0;display:grid;gap:var(--sp-5);margin-top:var(--sp-5)">
+          <li style="display:grid;grid-template-columns:auto 1fr;gap:var(--sp-5);align-items:baseline">
+            <span class="accent" style="font-family:var(--font-mono);font-size:var(--step--1)">01</span>
+            <div>
+              <h3 style="font-size:var(--step-1);font-weight:360">Choose your piece</h3>
+              <p class="muted">An original or a print. The cart holds prints; originals go through the studio directly so each acquisition is handled with care.</p>
+            </div>
+          </li>
+          <li style="display:grid;grid-template-columns:auto 1fr;gap:var(--sp-5);align-items:baseline">
+            <span class="accent" style="font-family:var(--font-mono);font-size:var(--step--1)">02</span>
+            <div>
+              <h3 style="font-size:var(--step-1);font-weight:360">A short conversation</h3>
+              <p class="muted">For originals, the studio writes back personally — about the painting, the room, shipping. No bots.</p>
+            </div>
+          </li>
+          <li style="display:grid;grid-template-columns:auto 1fr;gap:var(--sp-5);align-items:baseline">
+            <span class="accent" style="font-family:var(--font-mono);font-size:var(--step--1)">03</span>
+            <div>
+              <h3 style="font-size:var(--step-1);font-weight:360">Shipping, slowly</h3>
+              <p class="muted">Crated, fully insured, tracked. Prints in rigid tubes with backing board. Originals in custom crates.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__grid">
+      <div>
+        <div class="site-footer__brand">Komorebi<small>木漏れ日 · studio</small></div>
+        <p class="site-footer__manifesto">
+          Some kinds of light deserve their own word.
+          Some rooms deserve their own painting.
+        </p>
+      </div>
+      <div>
+        <h4>Visit</h4>
+        <ul role="list">
+          <li><a href="work.html">All work</a></li>
+          <li><a href="shop.html">Shop</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Inquire</h4>
+        <ul role="list">
+          <li><a href="mailto:studio@komorebi.studio">studio@komorebi.studio</a></li>
+          <li><a href="mailto:collectors@komorebi.studio">Collectors</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Stay near</h4>
+        <form class="newsletter" onsubmit="event.preventDefault();this.querySelector('button').textContent='Thank you.'">
+          <label class="visually-hidden" for="nl-email">Email</label>
+          <input id="nl-email" type="email" placeholder="your email" required>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <span>© <span data-year>2026</span> Komorebi Studio. All paintings made by hand.</span>
+      <span>Made slowly · 木漏れ日</span>
+    </div>
+  </footer>
+
+  <script type="module">
+    import { initSite, observeReveal } from './js/main.js';
+    import { loadData, productCardHTML } from './js/data.js';
+
+    initSite();
+
+    (async () => {
+      const { works } = await loadData();
+
+      const originalsGrid = document.getElementById('originals-grid');
+      const printsGrid = document.getElementById('prints-grid');
+
+      // Originals: every painting (mark sold pieces, keep them visible for catalog completeness)
+      // — but skip prints-only pieces from the originals track, since those originals don't change hands.
+      const originals = works.filter((w) => w.status !== 'prints-only');
+      originalsGrid.removeAttribute('aria-busy');
+      originalsGrid.innerHTML = originals.map((w) => productCardHTML(w, 'original')).join('');
+
+      // Prints: any work with at least one print variant
+      const prints = works.filter((w) => (w.prints || []).length > 0);
+      printsGrid.removeAttribute('aria-busy');
+      printsGrid.innerHTML = prints.map((w) => productCardHTML(w, 'print')).join('');
+
+      observeReveal();
+    })();
+  </script>
+</body>
+</html>

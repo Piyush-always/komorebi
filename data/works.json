@@ -1,0 +1,167 @@
+[
+  {
+    "id": "tidal-memory",
+    "title": "Tidal Memory",
+    "series": "understory",
+    "year": 2025,
+    "medium": "Oil and gold leaf on linen",
+    "dimensions": "120 × 90 cm",
+    "image": "assets/images/tidal-memory.jpg",
+    "description": "Painted from the memory of a small green river the artist has not seen in eleven years. Some pieces of light keep arriving, long after the place is gone.",
+    "status": "available",
+    "originalPrice": 4800,
+    "originalLink": "#inquire-tidal-memory",
+    "prints": [
+      { "size": "A4", "price": 80, "link": "#print-tidal-memory-a4" },
+      { "size": "A3", "price": 140, "link": "#print-tidal-memory-a3" },
+      { "size": "A2", "price": 220, "link": "#print-tidal-memory-a2" }
+    ],
+    "dominantColors": ["#1f2a1c", "#7a8a5a", "#d4a849"]
+  },
+  {
+    "id": "the-quiet-hour",
+    "title": "The Quiet Hour",
+    "series": "understory",
+    "year": 2024,
+    "medium": "Oil on linen",
+    "dimensions": "90 × 70 cm",
+    "image": "assets/images/the-quiet-hour.jpg",
+    "description": "The hour after the rain has stopped and before the birds have remembered what they were saying.",
+    "status": "sold",
+    "originalPrice": 3600,
+    "originalLink": null,
+    "prints": [
+      { "size": "A4", "price": 80, "link": "#print-the-quiet-hour-a4" },
+      { "size": "A3", "price": 140, "link": "#print-the-quiet-hour-a3" }
+    ],
+    "dominantColors": ["#243224", "#5e7253", "#b6a07a"]
+  },
+  {
+    "id": "leaf-rite",
+    "title": "Leaf Rite",
+    "series": "understory",
+    "year": 2025,
+    "medium": "Oil on linen",
+    "dimensions": "150 × 110 cm",
+    "image": "assets/images/leaf-rite.jpg",
+    "description": "A large piece made over fourteen weeks. The light shifts hourly. The painting does not.",
+    "status": "available",
+    "originalPrice": 5200,
+    "originalLink": "#inquire-leaf-rite",
+    "prints": [
+      { "size": "A3", "price": 140, "link": "#print-leaf-rite-a3" },
+      { "size": "A2", "price": 220, "link": "#print-leaf-rite-a2" }
+    ],
+    "dominantColors": ["#1a2418", "#3c5234", "#d4a849"]
+  },
+  {
+    "id": "before-the-name",
+    "title": "Before the Name",
+    "series": "first-light",
+    "year": 2024,
+    "medium": "Oil on linen",
+    "dimensions": "100 × 120 cm",
+    "image": "assets/images/before-the-name.jpg",
+    "description": "There is a minute, somewhere near five in the morning in February, when the room is not yet anything. This is a painting of that minute.",
+    "status": "available",
+    "originalPrice": 6400,
+    "originalLink": "#inquire-before-the-name",
+    "prints": [
+      { "size": "A4", "price": 80, "link": "#print-before-the-name-a4" },
+      { "size": "A3", "price": 140, "link": "#print-before-the-name-a3" },
+      { "size": "A2", "price": 220, "link": "#print-before-the-name-a2" }
+    ],
+    "dominantColors": ["#efe2cf", "#e8b896", "#c47a64"]
+  },
+  {
+    "id": "she-wakes-the-room",
+    "title": "She Wakes the Room",
+    "series": "first-light",
+    "year": 2024,
+    "medium": "Oil on canvas",
+    "dimensions": "70 × 90 cm",
+    "image": "assets/images/she-wakes-the-room.jpg",
+    "description": "Light is a kind of weather. This is the first weather of the day.",
+    "status": "available",
+    "originalPrice": 4200,
+    "originalLink": "#inquire-she-wakes-the-room",
+    "prints": [
+      { "size": "A4", "price": 80, "link": "#print-she-wakes-the-room-a4" },
+      { "size": "A3", "price": 140, "link": "#print-she-wakes-the-room-a3" }
+    ],
+    "dominantColors": ["#f3d8b6", "#d9986a", "#7a4a3a"]
+  },
+  {
+    "id": "morning-as-a-verb",
+    "title": "Morning as a Verb",
+    "series": "first-light",
+    "year": 2023,
+    "medium": "Oil on linen",
+    "dimensions": "80 × 80 cm",
+    "image": "assets/images/morning-as-a-verb.jpg",
+    "description": "Morning is something the room does, not something that happens to it.",
+    "status": "sold",
+    "originalPrice": 3800,
+    "originalLink": null,
+    "prints": [
+      { "size": "A3", "price": 140, "link": "#print-morning-as-a-verb-a3" },
+      { "size": "A2", "price": 220, "link": "#print-morning-as-a-verb-a2" }
+    ],
+    "dominantColors": ["#ecd2ad", "#c98060", "#5a3a2a"]
+  },
+  {
+    "id": "the-blue-half-hour",
+    "title": "The Blue Half Hour",
+    "series": "vespers",
+    "year": 2024,
+    "medium": "Oil on linen",
+    "dimensions": "120 × 100 cm",
+    "image": "assets/images/the-blue-half-hour.jpg",
+    "description": "After the sun, before the dark. The thirty minutes in which a room becomes honest.",
+    "status": "available",
+    "originalPrice": 5600,
+    "originalLink": "#inquire-the-blue-half-hour",
+    "prints": [
+      { "size": "A4", "price": 80, "link": "#print-the-blue-half-hour-a4" },
+      { "size": "A3", "price": 140, "link": "#print-the-blue-half-hour-a3" },
+      { "size": "A2", "price": 220, "link": "#print-the-blue-half-hour-a2" }
+    ],
+    "dominantColors": ["#1b2a3a", "#3d4a6a", "#c45a3d"]
+  },
+  {
+    "id": "ember-vespers",
+    "title": "Ember Vespers",
+    "series": "vespers",
+    "year": 2023,
+    "medium": "Oil and gold leaf on linen",
+    "dimensions": "90 × 70 cm",
+    "image": "assets/images/ember-vespers.jpg",
+    "description": "A small fire in a far window. The painting is mostly the dark around it.",
+    "status": "available",
+    "originalPrice": 4400,
+    "originalLink": "#inquire-ember-vespers",
+    "prints": [
+      { "size": "A4", "price": 80, "link": "#print-ember-vespers-a4" },
+      { "size": "A3", "price": 140, "link": "#print-ember-vespers-a3" }
+    ],
+    "dominantColors": ["#1a1612", "#5e2a18", "#d49a3a"]
+  },
+  {
+    "id": "what-the-day-leaves",
+    "title": "What the Day Leaves",
+    "series": "vespers",
+    "year": 2022,
+    "medium": "Oil on linen",
+    "dimensions": "110 × 140 cm",
+    "image": "assets/images/what-the-day-leaves.jpg",
+    "description": "Painted at the end of a long year. The largest piece in the Vespers cycle. Held in a private collection in Kyoto; prints remain available.",
+    "status": "prints-only",
+    "originalPrice": null,
+    "originalLink": null,
+    "prints": [
+      { "size": "A3", "price": 140, "link": "#print-what-the-day-leaves-a3" },
+      { "size": "A2", "price": 220, "link": "#print-what-the-day-leaves-a2" }
+    ],
+    "dominantColors": ["#0e1422", "#2d3a52", "#c47a3d"]
+  }
+]
