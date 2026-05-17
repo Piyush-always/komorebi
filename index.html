@@ -58,40 +58,39 @@
   <main id="main">
 
     <!-- ============================= HERO ============================= -->
-    <section class="hero-v2" id="hero" aria-labelledby="hero-h">
+    <section class="hero-v3" id="hero" aria-labelledby="hero-h">
 
       <!-- Floating artwork cards (populated by JS) -->
       <div class="hero-cards" id="hero-cards" aria-hidden="true"></div>
 
-      <!-- Centered editorial composition -->
-      <div class="hero-v2__inner">
-        <a class="hero-v2__badge" href="shop.html" data-reveal>
-          <span class="hero-v2__badge-dot" aria-hidden="true"></span>
+      <div class="hero-v3__inner">
+        <a class="hero-v3__pill" href="shop.html">
+          <span class="hero-v3__pill-dot" aria-hidden="true"></span>
           <span>The studio is open · <span id="badge-count">—</span> paintings available</span>
         </a>
 
-        <h1 id="hero-h" class="hero-v2__title display kerned">
-          <span class="split-line"><span class="split-line__inner">Explore the paintings</span></span>
-          <em class="hero-v2__title-italic">
-            <span class="split-line"><span class="split-line__inner" style="transition-delay:160ms">and the light inside them.</span></span>
-          </em>
+        <h1 id="hero-h" class="hero-v3__title">
+          <span class="line">Explore <em>our</em> paintings</span>
+          <span class="line">and <em>artworks</em></span>
         </h1>
 
-        <p class="hero-v2__desc" data-reveal style="--reveal-delay:500ms">
-          Original oil works by a single woman, in a single studio. Each painting is one of one — when it&rsquo;s gone, the light moves on.
+        <p class="hero-v3__desc">
+          A collection of original oil paintings — made by hand, by one woman, in the quiet hours of a single studio.
         </p>
 
-        <div class="hero-v2__cta-row" data-reveal style="--reveal-delay:680ms">
-          <a class="btn btn--primary btn--lg" href="work.html">
-            <span class="btn__label">See the work</span>
-            <span class="btn__arrow" aria-hidden="true">→</span>
-          </a>
-          <a class="btn btn--link" href="#manifesto">Read the studio note</a>
+        <a class="hero-v3__cta" href="work.html">
+          <span>See the paintings</span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+
+        <div class="hero-v3__proof">
+          <div class="hero-v3__avatars" aria-hidden="true" id="proof-avatars"></div>
+          <span>Held in private collections across 12 countries</span>
         </div>
       </div>
 
       <!-- Mist / fog gradient near bottom -->
-      <div class="hero-v2__mist" aria-hidden="true"></div>
+      <div class="hero-v3__mist" aria-hidden="true"></div>
     </section>
 
     <!-- ============================ MANIFESTO ========================= -->
@@ -247,16 +246,13 @@
       return out.slice(0, n);
     }
 
-    // -------- Floating hero cards: choreography preset --------
-    // 6 positions hand-tuned for asymmetric, layered, editorial composition.
-    // Each: position (top/left/right/bottom in %), width, rotation, scale, depth (parallax strength), float duration & delay.
+    // -------- Floating hero cards: cinematic 3-card composition --------
+    // Across-the-top placement framing the headline. Asymmetric:
+    // left and right cards extend partially off-screen, center card recessed.
     const HERO_CARDS = [
-      { top: '8%',  left: '5%',  w: 220, r: -8,  s: 1.00, depth: 28, dur: 13, delay: 0.0, z: 2 },
-      { top: '14%', right:'6%',  w: 190, r:  6,  s: 0.95, depth: 22, dur: 15, delay: 1.2, z: 2 },
-      { top: '46%', left: '12%', w: 150, r: -14, s: 0.85, depth: 16, dur: 17, delay: 0.6, z: 1 },
-      { top: '40%', right:'10%', w: 170, r: 10,  s: 0.90, depth: 18, dur: 14, delay: 2.0, z: 1 },
-      { bottom:'10%', left:'8%', w: 200, r: -4,  s: 1.00, depth: 26, dur: 12, delay: 1.6, z: 2 },
-      { bottom:'14%', right:'5%',w: 230, r:  8,  s: 1.05, depth: 30, dur: 16, delay: 0.4, z: 2 },
+      { top: '-6%',  left: '-5%',  w: 340, r: -14, s: 1.00, depth: 32, dur: 16, delay: 0.0, z: 2 },
+      { top: '-12%', left: '38%',  w: 240, r:   4, s: 0.86, depth: 18, dur: 19, delay: 1.4, z: 1 },
+      { top: '-5%',  right:'-4%',  w: 350, r:  14, s: 1.02, depth: 34, dur: 17, delay: 0.7, z: 2 },
     ];
 
     (async () => {
@@ -267,8 +263,8 @@
       document.getElementById('badge-count').textContent = availableWorks.length;
 
       const heroCards = document.getElementById('hero-cards');
-      // Pick 6 works for visual variety across series
-      const picks = pickAcrossSeries(works, series, 6);
+      // Pick 3 works for visual variety across series
+      const picks = pickAcrossSeries(works, series, 3);
       heroCards.innerHTML = picks.map((work, i) => {
         const cfg = HERO_CARDS[i];
         const colors = work.dominantColors || [];
@@ -293,7 +289,7 @@
           `--reveal-delay:${i * 90}ms`,
         ].join(';');
         return `
-          <a class="hero-card" data-reveal href="artwork.html?id=${escapeAttr(work.id)}" style="${styleVars}" aria-label="${escapeAttr(work.title)}">
+          <a class="hero-card" href="artwork.html?id=${escapeAttr(work.id)}" style="${styleVars}" aria-label="${escapeAttr(work.title)}">
             <div class="work-card__placeholder" aria-hidden="true"></div>
             <img class="hero-card__art" data-loading src="${escapeAttr(work.image)}"
                  alt="" loading="lazy" decoding="async"
@@ -306,6 +302,20 @@
           </a>
         `;
       }).join('');
+
+      // -------- Proof chip avatars (3 mini gradient circles using palettes from the series) --------
+      const proofAvatars = document.getElementById('proof-avatars');
+      proofAvatars.innerHTML = picks.map((work) => {
+        const c = work.dominantColors || [];
+        return `<span style="--c1:${c[0] || '#1f2a1c'};--c2:${c[1] || '#7a8a5a'};--c3:${c[2] || '#d4a849'}"></span>`;
+      }).join('');
+
+      // -------- Trigger cinematic reveal once content is in DOM --------
+      const heroSection = document.getElementById('hero');
+      // Two RAFs: first to commit layout, second to let initial styles paint, then the transition runs.
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        heroSection.classList.add('is-revealed');
+      }));
 
       // Pointer parallax — set --mx, --my on hero container (0..1 → -0.5..0.5)
       const heroEl = document.getElementById('hero');
