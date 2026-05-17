@@ -58,29 +58,40 @@
   <main id="main">
 
     <!-- ============================= HERO ============================= -->
-    <section class="hero" data-mounted>
-      <div class="hero__inner">
-        <h1 class="display hero__title kerned">
-          <span class="split-line"><span class="split-line__inner">Some kinds of light</span></span>
-          <em class="italic"><span class="split-line"><span class="split-line__inner" style="transition-delay:120ms">deserve their own word.</span></span></em>
+    <section class="hero-v2" id="hero" aria-labelledby="hero-h">
+
+      <!-- Floating artwork cards (populated by JS) -->
+      <div class="hero-cards" id="hero-cards" aria-hidden="true"></div>
+
+      <!-- Centered editorial composition -->
+      <div class="hero-v2__inner">
+        <a class="hero-v2__badge" href="shop.html" data-reveal>
+          <span class="hero-v2__badge-dot" aria-hidden="true"></span>
+          <span>The studio is open · <span id="badge-count">—</span> paintings available</span>
+        </a>
+
+        <h1 id="hero-h" class="hero-v2__title display kerned">
+          <span class="split-line"><span class="split-line__inner">Explore the paintings</span></span>
+          <em class="hero-v2__title-italic">
+            <span class="split-line"><span class="split-line__inner" style="transition-delay:160ms">and the light inside them.</span></span>
+          </em>
         </h1>
 
-        <p class="hero__caption" data-reveal style="--reveal-delay:600ms">
-          <strong>Komorebi (木漏れ日)</strong>
-          Original oil paintings of the moments that move through us
-          before we name them. Made by hand, by one woman, in the quiet hours.
+        <p class="hero-v2__desc" data-reveal style="--reveal-delay:500ms">
+          Original oil works by a single woman, in a single studio. Each painting is one of one — when it&rsquo;s gone, the light moves on.
         </p>
+
+        <div class="hero-v2__cta-row" data-reveal style="--reveal-delay:680ms">
+          <a class="btn btn--primary btn--lg" href="work.html">
+            <span class="btn__label">See the work</span>
+            <span class="btn__arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="btn btn--link" href="#manifesto">Read the studio note</a>
+        </div>
       </div>
 
-      <div class="hero__footer">
-        <p class="definition" data-reveal style="--reveal-delay:900ms">
-          You don&rsquo;t buy a painting. You buy a window
-          she cut from her own seeing.
-        </p>
-        <a class="hero__scrollcue" href="#manifesto" data-reveal style="--reveal-delay:1100ms">
-          Step inside
-        </a>
-      </div>
+      <!-- Mist / fog gradient near bottom -->
+      <div class="hero-v2__mist" aria-hidden="true"></div>
     </section>
 
     <!-- ============================ MANIFESTO ========================= -->
@@ -219,12 +230,107 @@
 
   <script type="module">
     import { initSite, observeReveal } from './js/main.js';
-    import { loadData, workCardHTML, worksInSeries } from './js/data.js';
+    import { loadData, workCardHTML, worksInSeries, escapeAttr, escapeHTML } from './js/data.js';
 
     initSite();
 
+    /** Pick `n` works spread across series so the hero composition isn't all one palette. */
+    function pickAcrossSeries(works, series, n) {
+      const buckets = series.map((s) => works.filter((w) => w.series === s.id));
+      const out = [];
+      let i = 0;
+      while (out.length < n && buckets.some((b) => b.length)) {
+        const b = buckets[i % buckets.length];
+        if (b.length) out.push(b.shift());
+        i++;
+      }
+      return out.slice(0, n);
+    }
+
+    // -------- Floating hero cards: choreography preset --------
+    // 6 positions hand-tuned for asymmetric, layered, editorial composition.
+    // Each: position (top/left/right/bottom in %), width, rotation, scale, depth (parallax strength), float duration & delay.
+    const HERO_CARDS = [
+      { top: '8%',  left: '5%',  w: 220, r: -8,  s: 1.00, depth: 28, dur: 13, delay: 0.0, z: 2 },
+      { top: '14%', right:'6%',  w: 190, r:  6,  s: 0.95, depth: 22, dur: 15, delay: 1.2, z: 2 },
+      { top: '46%', left: '12%', w: 150, r: -14, s: 0.85, depth: 16, dur: 17, delay: 0.6, z: 1 },
+      { top: '40%', right:'10%', w: 170, r: 10,  s: 0.90, depth: 18, dur: 14, delay: 2.0, z: 1 },
+      { bottom:'10%', left:'8%', w: 200, r: -4,  s: 1.00, depth: 26, dur: 12, delay: 1.6, z: 2 },
+      { bottom:'14%', right:'5%',w: 230, r:  8,  s: 1.05, depth: 30, dur: 16, delay: 0.4, z: 2 },
+    ];
+
     (async () => {
       const { works, series } = await loadData();
+
+      // -------- Hero floating cards --------
+      const availableWorks = works.filter((w) => w.status === 'available');
+      document.getElementById('badge-count').textContent = availableWorks.length;
+
+      const heroCards = document.getElementById('hero-cards');
+      // Pick 6 works for visual variety across series
+      const picks = pickAcrossSeries(works, series, 6);
+      heroCards.innerHTML = picks.map((work, i) => {
+        const cfg = HERO_CARDS[i];
+        const colors = work.dominantColors || [];
+        const pos = [
+          cfg.top != null    ? `top:${cfg.top}`       : '',
+          cfg.bottom != null ? `bottom:${cfg.bottom}` : '',
+          cfg.left != null   ? `left:${cfg.left}`     : '',
+          cfg.right != null  ? `right:${cfg.right}`   : '',
+        ].filter(Boolean).join(';');
+        const styleVars = [
+          pos,
+          `--w:${cfg.w}px`,
+          `--r:${cfg.r}deg`,
+          `--s:${cfg.s}`,
+          `--depth:${cfg.depth}`,
+          `--anim-d:${cfg.dur}s`,
+          `--anim-delay:${cfg.delay}s`,
+          `--c1:${colors[0] || '#1f2a1c'}`,
+          `--c2:${colors[1] || '#7a8a5a'}`,
+          `--c3:${colors[2] || '#d4a849'}`,
+          `z-index:${cfg.z}`,
+          `--reveal-delay:${i * 90}ms`,
+        ].join(';');
+        return `
+          <a class="hero-card" data-reveal href="artwork.html?id=${escapeAttr(work.id)}" style="${styleVars}" aria-label="${escapeAttr(work.title)}">
+            <div class="work-card__placeholder" aria-hidden="true"></div>
+            <img class="hero-card__art" data-loading src="${escapeAttr(work.image)}"
+                 alt="" loading="lazy" decoding="async"
+                 onload="this.removeAttribute('data-loading')"
+                 onerror="this.style.display='none'">
+            <div class="hero-card__label">
+              <span class="hero-card__title">${escapeHTML(work.title)}</span>
+              <span class="hero-card__meta">${work.year}</span>
+            </div>
+          </a>
+        `;
+      }).join('');
+
+      // Pointer parallax — set --mx, --my on hero container (0..1 → -0.5..0.5)
+      const heroEl = document.getElementById('hero');
+      const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!reducedMotion && !matchMedia('(pointer: coarse)').matches) {
+        let raf = 0, mx = 0, my = 0, tx = 0, ty = 0;
+        heroEl.addEventListener('pointermove', (e) => {
+          const r = heroEl.getBoundingClientRect();
+          tx = (e.clientX - r.left) / r.width  - 0.5;
+          ty = (e.clientY - r.top)  / r.height - 0.5;
+          if (!raf) raf = requestAnimationFrame(loop);
+        });
+        heroEl.addEventListener('pointerleave', () => { tx = 0; ty = 0; if (!raf) raf = requestAnimationFrame(loop); });
+        function loop() {
+          mx += (tx - mx) * 0.08;
+          my += (ty - my) * 0.08;
+          heroEl.style.setProperty('--mx', mx.toFixed(4));
+          heroEl.style.setProperty('--my', my.toFixed(4));
+          if (Math.abs(tx - mx) > 0.001 || Math.abs(ty - my) > 0.001) {
+            raf = requestAnimationFrame(loop);
+          } else {
+            raf = 0;
+          }
+        }
+      }
 
       // Series count
       document.getElementById('series-count').textContent =
