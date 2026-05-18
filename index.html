@@ -90,15 +90,25 @@
 
     <!-- ============================ MANIFESTO ========================= -->
     <section class="manifesto" id="manifesto" aria-labelledby="manifesto-h">
+      <!-- Painted full-bleed backdrop. CSS gradient placeholder by default;
+           if an artwork image is dropped at the path below it overlays on top. -->
+      <div class="manifesto__art" aria-hidden="true">
+        <img src="assets/images/the-blue-half-hour.jpg" alt=""
+             loading="lazy" decoding="async"
+             onerror="this.style.display='none'">
+      </div>
       <div class="manifesto__inner">
         <h2 id="manifesto-h" class="visually-hidden">A manifesto</h2>
         <blockquote class="manifesto__quote" data-reveal>
-          Art is not <em>decoration</em>.
-          It is the part of a room that <em>thinks back</em>.
-          <br><br>
-          Every piece in this studio is one of one — painted slowly,
-          in oil, by a single pair of hands.
-          When a painting is gone, the light moves on.
+          <p class="manifesto__quote-hero">
+            Art is not <em>decoration</em>.
+            It is the part of a room that <em>thinks back</em>.
+          </p>
+          <p class="manifesto__quote-body">
+            Every piece in this studio is one of one — painted slowly,
+            in oil, by a single pair of hands.
+            When a painting is gone, the light moves on.
+          </p>
         </blockquote>
         <cite class="manifesto__cite" data-reveal style="--reveal-delay:200ms">— from the studio</cite>
       </div>
