@@ -1,6 +1,6 @@
 // cart.js — localStorage cart with pub/sub.
 
-const KEY = 'komorebi.cart.v1';
+const KEY = 'itzel.cart.v1';
 const listeners = new Set();
 
 function read() {

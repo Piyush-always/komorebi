@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Artwork — Komorebi</title>
-  <meta name="description" content="A single painting from the Komorebi studio.">
+  <title>Artwork — Itzel</title>
+  <meta name="description" content="A single painting from the Itzel studio.">
   <meta name="theme-color" content="#f6f1e6">
   <meta property="og:type" content="article">
 
@@ -93,8 +93,7 @@
 
   <nav class="site-nav" aria-label="Primary">
     <a class="site-nav__brand" href="index.html">
-      Komorebi
-      <small>木漏れ日 · studio</small>
+      Itzel
     </a>
     <div class="site-nav__links">
       <a href="work.html">Work</a>
@@ -126,10 +125,9 @@
   <footer class="site-footer">
     <div class="site-footer__grid">
       <div>
-        <div class="site-footer__brand">Komorebi<small>木漏れ日 · studio</small></div>
+        <div class="site-footer__brand">Itzel</div>
         <p class="site-footer__manifesto">
-          Some kinds of light deserve their own word.
-          Some rooms deserve their own painting.
+          The art of enduring glory
         </p>
       </div>
       <div>
@@ -142,7 +140,7 @@
       <div>
         <h4>Inquire</h4>
         <ul role="list">
-          <li><a href="mailto:studio@komorebi.studio">studio@komorebi.studio</a></li>
+          <li><a href="mailto:studio@itzel.studio">studio@itzel.studio</a></li>
         </ul>
       </div>
       <div>
@@ -155,8 +153,8 @@
       </div>
     </div>
     <div class="site-footer__bottom">
-      <span>© <span data-year>2026</span> Komorebi Studio. All paintings made by hand.</span>
-      <span>Made slowly · 木漏れ日</span>
+      <span>© <span data-year>2026</span> Itzel Studio. All paintings made by hand.</span>
+      <span>Made slowly</span>
     </div>
   </footer>
 
@@ -276,7 +274,7 @@
         <div class="inquire">
           <h4>Considering a commission?</h4>
           <p>If this piece has moved you, the studio sometimes accepts private commissions in a related register. Write a few sentences — what room, what light, what feeling.</p>
-          <a class="btn btn--ghost btn--block" href="mailto:studio@komorebi.studio?subject=Commission%20inquiry%20%E2%80%94%20${encodeURIComponent(work.title)}">
+          <a class="btn btn--ghost btn--block" href="mailto:studio@itzel.studio?subject=Commission%20inquiry%20%E2%80%94%20${encodeURIComponent(work.title)}">
             <span class="btn__label">Write to the studio</span>
             <span class="btn__arrow" aria-hidden="true">→</span>
           </a>
@@ -329,7 +327,7 @@
       `;
 
       // Update page metadata
-      document.title = `${work.title} — ${seriesObj?.title || 'Komorebi'} · Komorebi`;
+      document.title = `${work.title} — ${seriesObj?.title || 'Itzel'} · Itzel`;
       document.querySelector('meta[name="description"]').setAttribute(
         'content', `${work.title} (${work.year}) — ${work.medium}, ${work.dimensions}. ${work.description || ''}`
       );
@@ -344,7 +342,7 @@
         artMedium: work.medium,
         artworkSurface: 'Linen',
         dateCreated: String(work.year),
-        creator: { '@type': 'Person', name: 'Komorebi (studio)' },
+        creator: { '@type': 'Person', name: 'Itzel (studio)' },
         image: work.image,
         ...(work.originalPrice ? {
           offers: {

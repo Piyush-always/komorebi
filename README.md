@@ -1,6 +1,6 @@
-# Komorebi — Studio Website
+# Itzel — Studio Website
 
-Vertical slice (Phase 1) of the Komorebi artist site. Pure static HTML / CSS / JS, no build step. Open `index.html` directly or serve the folder with any static server.
+Vertical slice (Phase 1) of the Itzel artist site. Pure static HTML / CSS / JS, no build step. Open `index.html` directly or serve the folder with any static server.
 
 ```
 python -m http.server 8000     # or
@@ -74,7 +74,7 @@ The site does no payment processing itself. It hands off to whatever provider th
 
 | Field in JSON | What goes there |
 |---|---|
-| `originalLink` | URL the "Acquire the original" button opens. Use `mailto:` for inquiry-only, e.g. `mailto:studio@komorebi.studio?subject=Tidal%20Memory` |
+| `originalLink` | URL the "Acquire the original" button opens. Use `mailto:` for inquiry-only, e.g. `mailto:studio@itzel.studio?subject=Tidal%20Memory` |
 | `prints[].link` | URL for that specific print size |
 
 The cart's checkout button currently opens each item's payment link in a new tab (one per item). For a unified checkout (recommended once volume picks up), swap the `checkoutBtn` handler at the bottom of `cart.html` for a Stripe Checkout Session URL.
@@ -88,7 +88,7 @@ The cart's checkout button currently opens each item's payment link in a new tab
 | Colors (base, accent, surfaces) | `css/base.css` → `:root { --bg, --fg, --accent, … }` |
 | Fonts | `index.html` (and siblings) — `<link rel="stylesheet" href="https://fonts.googleapis.com/…">`. Default is Fraunces (display) + Inter (body). Swap both in the Google Fonts URL and in `--font-display` / `--font-body`. |
 | Page-wide copy (manifesto, hero, studio) | `index.html` directly. The poetic lines were written for this slice — feel free to rewrite. |
-| Site identity (brand, footer, socials, emails) | Search each HTML file for `studio@komorebi.studio` and the Instagram link, and replace. |
+| Site identity (brand, footer, socials, emails) | Search each HTML file for `studio@itzel.studio` and the Instagram link, and replace. |
 
 ---
 
@@ -99,7 +99,7 @@ These are intentionally not real yet — they're the bits that need the artist's
 - **`assets/images/*.jpg`** — every artwork image. The site currently renders a painted CSS gradient using each work's `dominantColors` whenever the image is missing, so the layout looks composed from day one. Drop in the real photos and the placeholders disappear automatically.
 - **`originalLink` / `prints[].link`** in `data/works.json` — hash placeholders like `"#inquire-…"`. Replace with real Stripe / inquiry URLs.
 - **Open Graph image** — `assets/images/og-default.jpg` for social previews. 1200×630 recommended.
-- **Real artist name** — only "Komorebi" (the studio name) appears in the current copy. If a personal byline is wanted, search the HTML for `the artist` / `one woman` and adjust.
+- **Real artist name** — only "Itzel" (the studio name) appears in the current copy. If a personal byline is wanted, search the HTML for `the artist` / `one woman` and adjust.
 
 ---
 

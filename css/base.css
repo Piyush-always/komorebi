@@ -1,5 +1,5 @@
 /* ============================================================
-   KOMOREBI — base.css
+   ITZEL — base.css
    Reset, design tokens, typography.
    ============================================================ */
 
@@ -52,7 +52,7 @@ a {
 }
 
 :root {
-  /* Color — warm paper light. Komorebi: sunlight through leaves on a wall.
+  /* Color — warm paper light. Itzel: sunlight through leaves on a wall.
      --accent retargets per artwork (color-theme.js). */
   --bg:           #f6f1e6;   /* warm paper cream */
   --bg-elev:      #ede5d2;   /* deeper warm cream */
@@ -63,7 +63,7 @@ a {
   --fg-faint:     #ada397;   /* light warm gray */
   --border:       #d8cfb9;   /* soft warm border */
   --border-strong:#bfb29a;
-  --accent:       #a87a2e;   /* darker komorebi gold — readable on cream */
+  --accent:       #a87a2e;   /* darker itzel gold — readable on cream */
   --accent-soft:  #a87a2e1c;
   --danger:       #a8442e;
   --success:      #5e7a3e;

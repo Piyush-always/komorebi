@@ -1,11 +1,9 @@
 // main.js — site-wide entry. Each page imports this and then runs its own logic.
 
 import { wireNavCount } from './cart.js';
-import { initCursor } from './cursor.js';
 
 export function initSite() {
   wireNavCount();
-  initCursor();
   initReveal();
   highlightNav();
   initFooterYear();
